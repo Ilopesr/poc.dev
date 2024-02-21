@@ -3,3 +3,4 @@ frontend/
 .idea/
 __pycache__/
 migrations/
+*.sqlite3
