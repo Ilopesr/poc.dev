@@ -14,20 +14,20 @@ from rest_framework import filters
 class PostView(ListAPIView, LimitOffsetPagination):
     permission_classes = [permissions.AllowAny]
     serializer_class = PostSerializer
-    pagination_class = LimitOffsetPagination
     filter_backends = [filters.SearchFilter]
     search_fields = [
         "username",
     ]
 
     def get_queryset(self):
-        if "search" in self.request.GET:
+        try:
             if self.request.GET["search"]:
                 queryset = Post.objects.filter(
                     **{self.search_fields[0]: self.request.GET["search"]}
                 )
                 return self.paginate_queryset(queryset)
-        return self.paginate_queryset(Post.objects.all())
+        except:
+            return self.paginate_queryset(Post.objects.all())
 
     def get(self, format=None):
         serializer = self.serializer_class(self.get_queryset(), many=True)
@@ -35,10 +35,11 @@ class PostView(ListAPIView, LimitOffsetPagination):
         return context
 
     def post(self, request, format=None):
-        if not request.data:
-            return redirect("posts")
+        serializer = self.serializer_class(data=request.data)
 
-        serializer = PostSerializer(data=request.data)
+        if not request.data:
+            return Response(serializer.data, status=200)
+
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=200)

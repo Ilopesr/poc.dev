@@ -150,6 +150,5 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 10,
-    "DEFAULT_METADATA_CLASS": None,
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
 }
