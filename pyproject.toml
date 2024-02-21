@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "poc-dev"
+version = "0.1.0"
+description = "Prove of concepts for a test."
+authors = ["Igor Lopes <igor.lop.r@gmail.com>"]
+license = "None"
+readme = "README.md"
+packages = [{include = "poc"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.0.2"
+djangorestframework = "^3.14.0"
+django-extensions = "^3.2.3"
+django-filter = "^23.5"
+django-cors-headers = "^4.3.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
